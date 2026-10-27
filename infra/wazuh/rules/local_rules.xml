@@ -1,0 +1,9 @@
+<group name="soc_lab_local,">
+
+  <!-- Règle silencieuse valide utilisée comme point d'extension local. -->
+  <rule id="109999" level="0" noalert="1">
+    <decoded_as>json</decoded_as>
+    <description>PHASE4: Local silent JSON rule</description>
+  </rule>
+
+</group>

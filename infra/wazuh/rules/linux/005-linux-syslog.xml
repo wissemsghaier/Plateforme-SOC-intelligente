@@ -1,0 +1,24 @@
+<group name="soc_lab_phase4_linux_syslog,">
+
+  <rule id="100470" level="7">
+    <if_sid>40700</if_sid>
+    <program_name>systemd</program_name>
+    <match>Failed to start</match>
+    <description>PHASE4: Linux systemd failed service start detected</description>
+    <group>linux,system,service_failure,</group>
+  </rule>
+
+  <rule id="100471" level="10" frequency="5" timeframe="300">
+    <if_matched_sid>100470</if_matched_sid>
+    <description>PHASE4: Repeated Linux systemd service start failures</description>
+    <group>linux,system,service_failure,availability_risk,</group>
+  </rule>
+
+  <rule id="100472" level="8">
+    <if_sid>1</if_sid>
+    <match>Out of memory.*Killed process</match>
+    <description>PHASE4: Linux OOM-killer activity observed</description>
+    <group>linux,system,resource_exhaustion,</group>
+  </rule>
+
+</group>

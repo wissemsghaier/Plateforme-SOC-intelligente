@@ -1,0 +1,45 @@
+services:
+  cortex-es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.13
+    environment:
+      - node.name=cortex-es
+      - cluster.name=cortex-cluster
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - cortex_es_data:/usr/share/elasticsearch/data
+    networks:
+      - cortex-net
+
+  cortex:
+    image: thehiveproject/cortex:latest
+    depends_on:
+      - cortex-es
+    ports:
+      - "9001:9001"
+    environment:
+      - es_uri=http://cortex-es:9200
+      # Chemin vu depuis le conteneur Cortex
+      - job_directory=/tmp/cortex-jobs
+
+      # Chemin réel vu depuis UBUNTU-SRV1
+      - docker_job_directory=/opt/cortex/jobs
+      - analyzer_urls=https://catalogs.download.strangebee.com/latest/json/analyzers.json
+      - responder_urls=https://catalogs.download.strangebee.com/latest/json/responders.json
+    volumes:
+      - /opt/cortex/jobs:/tmp/cortex-jobs
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - cortex-net
+
+volumes:
+  cortex_es_data:
+
+networks:
+  cortex-net:

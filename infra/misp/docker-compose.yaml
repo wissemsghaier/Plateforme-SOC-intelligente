@@ -1,0 +1,54 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: misp-redis
+    restart: unless-stopped
+    command: ["redis-server", "--save", "", "--appendonly", "no", "--maxmemory", "64mb", "--maxmemory-policy", "allkeys-lru"]
+    mem_limit: 96m
+
+  db:
+    image: mariadb:10.11
+    container_name: misp-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MISP_DB_ROOT_PASSWORD:?Set MISP_DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: "misp"
+      MYSQL_USER: "misp"
+      MYSQL_PASSWORD: ${MISP_DB_PASSWORD:?Set MISP_DB_PASSWORD}
+    command:
+      - --innodb-buffer-pool-size=128M
+      - --innodb-log-file-size=64M
+      - --max-connections=40
+      - --table-open-cache=200
+    volumes:
+      - misp_db_data:/var/lib/mysql
+    mem_limit: 700m
+
+  misp:
+    image: coolacid/misp-docker:core-latest
+    container_name: misp-core
+    restart: unless-stopped
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8080:80"
+    environment:
+      CRON_USER_ID: "1"
+      INIT: "true"
+      BASEURL: "http://192.168.99.15:8080"
+      NOREDIR: "true"
+      MYSQL_HOST: "db"
+      MYSQL_DATABASE: "misp"
+      MYSQL_USER: "misp"
+      MYSQL_PASSWORD: ${MISP_DB_PASSWORD:?Set MISP_DB_PASSWORD}
+      REDIS_FQDN: "redis"
+      PHP_MEMORY_LIMIT: "384M"
+      PHP_MAX_EXECUTION_TIME: "180"
+    volumes:
+      - misp_app_data:/var/www/MISP
+    mem_limit: 1400m
+
+volumes:
+  misp_db_data:
+  misp_app_data:

@@ -1,0 +1,71 @@
+services:
+  frontend:
+    image: ghcr.io/shuffle/shuffle-frontend:latest
+    container_name: shuffle-frontend
+    restart: unless-stopped
+    ports:
+      - "3001:80"
+    environment:
+      - BACKEND_HOSTNAME=shuffle-backend
+    depends_on:
+      - backend
+    mem_limit: 384m
+
+  backend:
+    image: ghcr.io/shuffle/shuffle-backend:latest
+    container_name: shuffle-backend
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./shuffle-apps:/shuffle-apps
+      - ./shuffle-files:/shuffle-files
+    environment:
+      - SHUFFLE_APP_HOTLOAD_FOLDER=/shuffle-apps
+      - SHUFFLE_FILE_LOCATION=/shuffle-files
+      - SHUFFLE_OPENSEARCH_URL=http://shuffle-opensearch:9200
+      - SHUFFLE_OPENSEARCH_USERNAME=admin
+      - SHUFFLE_OPENSEARCH_PASSWORD=${SHUFFLE_OPENSEARCH_PASSWORD:?Set SHUFFLE_OPENSEARCH_PASSWORD}
+      - SHUFFLE_ELASTIC=true
+      - BASE_URL=http://shuffle-backend:5001
+      - SHUFFLE_ORBORUS_EXECUTION_CONCURRENCY=1
+      - SHUFFLE_APP_REPLICAS=1
+      - SHUFFLE_CONTAINER_AUTO_CLEANUP=true
+      - SHUFFLE_LOGS_DISABLED=true
+    depends_on:
+      - shuffle-opensearch
+    mem_limit: 768m
+
+  orborus:
+    image: ghcr.io/shuffle/shuffle-orborus:latest
+    container_name: shuffle-orborus
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - ENVIRONMENT_NAME=Shuffle
+      - BASE_URL=http://shuffle-backend:5001
+      - DOCKER_API_VERSION=1.40
+    depends_on:
+      - backend
+    mem_limit: 384m
+
+  shuffle-opensearch:
+    image: opensearchproject/opensearch:2.14.0
+    container_name: shuffle-opensearch
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - plugins.security.disabled=true
+      - bootstrap.memory_lock=true
+      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${SHUFFLE_OPENSEARCH_PASSWORD:?Set SHUFFLE_OPENSEARCH_PASSWORD}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - ./shuffle-database:/usr/share/opensearch/data
+    mem_limit: 1200m

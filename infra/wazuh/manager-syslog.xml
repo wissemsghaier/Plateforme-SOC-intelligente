@@ -1,0 +1,9 @@
+<!-- Fragment a fusionner dans ossec_config du manager, pas de l'agent.
+     Remplacer CHANGE_ME_PFSENSE_SOURCE_IP par l'IP source reellement observee.
+     Ne pas ajouter un second bloc remote syslog si UDP 514 est deja configure. -->
+<remote>
+  <connection>syslog</connection>
+  <port>514</port>
+  <protocol>udp</protocol>
+  <allowed-ips>CHANGE_ME_PFSENSE_SOURCE_IP</allowed-ips>
+</remote>

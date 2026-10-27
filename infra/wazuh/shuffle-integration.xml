@@ -1,0 +1,9 @@
+<!-- Fragment a fusionner dans ossec_config du manager.
+     Remplacer l'URL par celle du declencheur Webhook de votre instance Shuffle.
+     Cette URL est un secret. Ne pas dupliquer une integration deja presente. -->
+<integration>
+  <name>shuffle</name>
+  <hook_url>http://192.168.99.15:3001/api/v1/hooks/CHANGE_ME_WEBHOOK_ID</hook_url>
+  <level>5</level>
+  <alert_format>json</alert_format>
+</integration>

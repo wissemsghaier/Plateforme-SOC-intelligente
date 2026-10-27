@@ -1,0 +1,12 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+*.joblib
+ml-api/data/*
+!ml-api/data/.gitkeep
+!ml-api/data/labels-template.csv
+ml-api/models/*
+!ml-api/models/.gitkeep
+copilot-api/.cache/
+.pytest_cache/

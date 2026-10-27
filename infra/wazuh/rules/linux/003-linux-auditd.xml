@@ -1,0 +1,48 @@
+<group name="soc_lab_phase4_linux_auditd,">
+
+  <!-- Échec d'authentification (SSH, sudo, su...) -->
+  <rule id="100450" level="6">
+    <if_sid>80700</if_sid>
+    <field name="audit.type">^USER_AUTH$</field>
+    <match>res=failed</match>
+    <description>PHASE4: Linux auditd failed authentication for $(audit.acct) from $(srcip)</description>
+    <group>linux,auditd,authentication,authentication_failed,</group>
+  </rule>
+
+  <!-- Brute force : 6 échecs en 120 s depuis la même IP -->
+  <rule id="100453" level="12" frequency="6" timeframe="120">
+    <if_matched_sid>100450</if_matched_sid>
+    <same_field>srcip</same_field>
+    <description>PHASE4: Linux repeated auditd authentication failures from $(srcip)</description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+    <group>attack,bruteforce,linux,auditd,</group>
+  </rule>
+
+  <rule id="100451" level="7">
+    <if_sid>80700</if_sid>
+    <field name="audit.type">^EXECVE$</field>
+    <description>PHASE4: Linux auditd command execution event observed</description>
+    <group>linux,auditd,command_execution,</group>
+  </rule>
+
+  <rule id="100452" level="8">
+    <if_sid>80700</if_sid>
+    <field name="audit.type">^SYSCALL$</field>
+    <match>key="identity"|key=identity</match>
+    <description>PHASE4: Linux auditd identity-related syscall observed</description>
+    <group>linux,auditd,identity,</group>
+  </rule>
+
+  <rule id="100454" level="10">
+    <if_sid>80700</if_sid>
+    <field name="audit.type">^CONFIG_CHANGE$</field>
+    <description>PHASE4: Linux auditd configuration change detected</description>
+    <mitre>
+      <id>T1562</id>
+    </mitre>
+    <group>attack,defense_evasion,linux,auditd,</group>
+  </rule>
+
+</group>

@@ -1,0 +1,120 @@
+<group name="soc_lab_phase4_windows_sysmon,">
+
+	<!-- 1) PowerShell execution -->
+	<rule id="100500" level="7">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.originalFileName" type="pcre2">(?i)^powershell\.exe$</field>
+		<description>PHASE4: Sysmon process creation - PowerShell executed</description>
+		<mitre>
+			<id>T1059.001</id>
+		</mitre>
+		<group>windows,sysmon,process_creation,powershell,attack,execution,</group>
+	</rule>
+
+	<!-- 2) Encoded PowerShell -->
+	<rule id="100501" level="12">
+		<if_sid>100500</if_sid>
+		<field name="win.eventdata.commandLine" type="pcre2">(?i)(-enc|-encodedcommand)\s+[A-Za-z0-9+/=]{20,}</field>
+		<description>PHASE4: Sysmon suspicious encoded PowerShell command</description>
+		<mitre>
+			<id>T1027</id>
+			<id>T1059.001</id>
+		</mitre>
+		<group>windows,sysmon,powershell,defense_evasion,attack,</group>
+	</rule>
+
+	<!-- 3) CMD launched by Office -->
+	<rule id="100502" level="10">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.image" type="pcre2">(?i)\\cmd\.exe$</field>
+		<field name="win.eventdata.parentImage" type="pcre2">(?i)\\(winword|excel|powerpnt|outlook)\.exe$</field>
+		<description>PHASE4: Sysmon cmd.exe launched by Microsoft Office process</description>
+		<mitre>
+			<id>T1204.002</id>
+		</mitre>
+		<group>windows,sysmon,office_child_process,attack,execution,</group>
+	</rule>
+
+	<!-- 4) LOLBin: mshta -->
+	<rule id="100503" level="10">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.image" type="pcre2">(?i)\\mshta\.exe$</field>
+		<description>PHASE4: Sysmon mshta.exe execution observed</description>
+		<mitre>
+			<id>T1218.005</id>
+		</mitre>
+		<group>windows,sysmon,lolbin,attack,defense_evasion,</group>
+	</rule>
+
+	<!-- 5) LOLBin: rundll32 -->
+	<rule id="100504" level="9">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.image" type="pcre2">(?i)\\rundll32\.exe$</field>
+		<description>PHASE4: Sysmon rundll32.exe execution observed</description>
+		<mitre>
+			<id>T1218.011</id>
+		</mitre>
+		<group>windows,sysmon,lolbin,attack,defense_evasion,</group>
+	</rule>
+
+	<!-- 6) LSASS access (possible credential dumping) -->
+	<rule id="100505" level="13">
+		<if_group>sysmon_event_10</if_group>
+		<field name="win.eventdata.targetImage" type="pcre2">(?i)\\lsass\.exe$</field>
+		<description>PHASE4: Sysmon process accessed LSASS memory</description>
+		<mitre>
+			<id>T1003.001</id>
+		</mitre>
+		<group>windows,sysmon,credential_access,attack,</group>
+	</rule>
+
+	<!-- 7) New service creation -->
+	<rule id="100506" level="11">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.image" type="pcre2">(?i)\\sc\.exe$</field>
+		<field name="win.eventdata.commandLine" type="pcre2">(?i)\bcreate\b</field>
+		<description>PHASE4: Sysmon possible service creation via sc.exe</description>
+		<mitre>
+			<id>T1543.003</id>
+		</mitre>
+		<group>windows,sysmon,persistence,attack,</group>
+	</rule>
+
+	<!-- 8) Remote admin tool execution -->
+	<rule id="100507" level="8">
+		<if_group>sysmon_event1</if_group>
+		<field name="win.eventdata.image" type="pcre2">(?i)\\(psexec|wmic)\.exe$</field>
+		<description>PHASE4: Sysmon remote administration utility execution</description>
+		<mitre>
+			<id>T1021</id>
+		</mitre>
+		<group>windows,sysmon,lateral_movement,attack,</group>
+	</rule>
+
+	<!-- 9) Burst of PowerShell executions -->
+	<rule id="100508" level="12" frequency="6" timeframe="120">
+		<if_matched_sid>100500</if_matched_sid>
+		<same_field>win.system.computer</same_field>
+		<description>PHASE4: Repeated PowerShell executions on same host</description>
+		<group>windows,sysmon,anomaly,powershell,attack,</group>
+	</rule>
+
+	<!-- 10a) Base rule for Sysmon network connections (no alert) -->
+	<rule id="100510" level="1">
+		<if_group>sysmon_event3</if_group>
+		<description>PHASE4: Sysmon network connection baseline</description>
+		<group>windows,sysmon,network,</group>
+	</rule>
+
+	<!-- 10b) Potential C2 beacon-like network activity -->
+	<!-- <rule id="100509" level="10" frequency="20" timeframe="120">
+		<if_matched_sid>100510</if_matched_sid>
+		<same_field>win.eventdata.destinationIp</same_field>
+		<description>PHASE4: Sysmon repeated outbound connections to same destination</description>
+		<mitre>
+			<id>T1071</id>
+		</mitre>
+		<group>windows,sysmon,network,possible_c2,attack,</group>
+	</rule> -->
+
+</group>
