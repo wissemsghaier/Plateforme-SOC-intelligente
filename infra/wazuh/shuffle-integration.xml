@@ -3,7 +3,7 @@
      Cette URL est un secret. Ne pas dupliquer une integration deja presente. -->
 <integration>
   <name>shuffle</name>
-  <hook_url>http://192.168.99.15:3001/api/v1/hooks/CHANGE_ME_WEBHOOK_ID</hook_url>
-  <level>5</level>
+  <hook_url>http://192.168.99.15:3001/api/v1/hooks/webhook_0dacfb21-1b89-40ba-ab6e-6377368dcab</hook_url>
+  <level>7</level>
   <alert_format>json</alert_format>
 </integration>
