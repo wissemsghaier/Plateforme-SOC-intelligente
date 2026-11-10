@@ -1,0 +1,55 @@
+POST PRÊT À PUBLIER — PROJET SOC INTELLIGENT
+
+Titre:
+De la détection à la réponse automatique: mon SOC intelligent (Wazuh + Shuffle + TheHive + Cortex + MISP)
+
+Accroche:
+J’ai conçu un workflow SOC complet qui transforme une alerte brute en action de réponse automatique, avec traçabilité de bout en bout.
+
+Texte principal:
+Sur ce projet, mon objectif était clair: réduire le temps entre détection et action.
+
+J’ai mis en place une chaîne opérationnelle:
+- Wazuh pour la détection
+- Shuffle pour l’orchestration SOAR
+- API de réponse pour l’exécution des actions (Linux/Windows)
+- TheHive pour la gestion des alertes
+- Cortex et MISP pour l’enrichissement renseignement
+
+Points clés (ce qui fait la valeur du projet):
+1) Réponse automatique multi-OS
+   - Routage intelligent Linux / Windows
+   - Action d’isolation exécutée automatiquement selon la politique
+
+2) Décision pilotée par la criticité
+   - Déclenchement conditionné (HIGH/CRITICAL + approbation/payload valide)
+   - Réduction des faux déclenchements
+
+3) Traçabilité SOC complète
+   - Chaque action est journalisée (statut, endpoint, host, résultat)
+   - Mise à jour de l’alerte TheHive avec tag de réponse SOAR
+
+4) Enrichissement cyber exploitable
+   - Pivot MISP/Cortex pour contextualiser l’alerte
+   - Gestion des IP publiques/privées selon la source de renseignement
+
+5) Validation opérationnelle réelle
+   - Tests end-to-end sur environnement Docker
+   - Vérification de l’isolation effective côté machine cible
+
+Impact concret:
+- Diminution du temps de réaction incident
+- Standardisation des actions de containment
+- Amélioration de la qualité des investigations analystes
+
+Compétences démontrées:
+SOAR, SIEM, Threat Intel, API Integration, Python, Docker, Incident Response, TheHive, Cortex, MISP, Wazuh.
+
+Conclusion:
+Ce projet montre comment passer d’un SOC “alert-centric” à un SOC “action-centric”, avec une logique de réponse fiable, mesurable et auditable.
+
+Version courte (LinkedIn):
+J’ai implémenté un SOC intelligent de bout en bout: Wazuh -> Shuffle -> Response API -> TheHive (+ Cortex/MISP). Résultat: isolation automatique multi-OS, enrichissement, et traçabilité complète des actions de réponse.
+
+Hashtags suggérés:
+#SOC #CyberSecurity #SOAR #SIEM #ThreatIntelligence #IncidentResponse #Wazuh #Shuffle #TheHive #Cortex #MISP #Python #Docker

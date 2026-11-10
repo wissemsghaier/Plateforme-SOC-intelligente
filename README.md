@@ -16,6 +16,14 @@ TheHive, Cortex, MISP, Shuffle ou Tenzir et sans remplacer leurs volumes.
 
 Le [guide débutant](docs/GUIDE_DEBUTANT_PAS_A_PAS.md) reste une référence pour
 une installation neuve. Ne rejouez pas ses phases d'installation sur ce serveur.
+Pour le cycle ML local (export, labels, entraînement, vérifications), suivez
+[README ML local](docs/README_ML_LOCAL.md).
+Pour ajouter de nouvelles cibles Windows à la réponse automatisée (WinRM +
+certificats + Shuffle), suivez
+[Ajouter une machine Windows](docs/AJOUTER_UNE_MACHINE_WINDOWS.md).
+Pour ajouter des cibles Linux à la réponse automatisée (SSH sécurisé +
+allowlists + Shuffle), suivez
+[Ajouter une machine Linux](docs/AJOUTER_UNE_MACHINE_LINUX.md).
 
 ## 1. Ce que contient le projet
 

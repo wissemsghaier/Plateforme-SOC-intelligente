@@ -85,6 +85,27 @@ ne peut pas être désactivé. L'API répond par erreur si
 la règle Windows bloque les connexions sortantes et peut interrompre vos propres
 communications de gestion.
 
+## API de réponse Linux — `POST /respond/linux`
+
+URL : `http://192.168.99.15:8000/respond/linux`
+En-tête : `X-API-Token: <SOC_API_TOKEN>`.
+
+```json
+{
+  "host": "192.168.99.30",
+  "action": "isolate",
+  "approved_by": "analyste1",
+  "case_id": "T-002"
+}
+```
+
+Le format est le même que `/respond`, mais l'exécution distante se fait en SSH.
+L'hôte doit figurer dans `LINUX_SSH_ALLOWED_HOSTS`. Les actions disponibles sont
+les mêmes (`isolate`, `kill_process`, `disable_user`) et les paramètres sont
+contrôlés par `LINUX_SSH_ALLOWED_USERS` et `LINUX_SSH_ALLOWED_PROCESSES`.
+Le mode Linux est activé avec `LINUX_SSH_ENABLED=true`. Le serveur SSH distant
+doit être vérifiable via `LINUX_SSH_KNOWN_HOSTS`.
+
 ## Copilot — `POST /ask`
 
 URL : `http://192.168.99.15:8002/ask`

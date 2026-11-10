@@ -46,6 +46,8 @@ services:
       WAZUH_INDEXER_CA_CERT: ${WAZUH_INDEXER_CA_CERT:-}
       WAZUH_INDEXER_INDEX: ${WAZUH_INDEXER_INDEX:-wazuh-alerts-*}
       EXPORT_HOURS: ${EXPORT_HOURS:-24}
+    extra_hosts:
+      - "wazuh.indexer:192.168.99.15"
     volumes:
       - ./ml-api/data:/app/data
       - ./infra/certs:/app/certs:ro
@@ -75,6 +77,16 @@ services:
       WINRM_CA_CERT: ${WINRM_CA_CERT:-}
       WINRM_ALLOWED_USERS: ${WINRM_ALLOWED_USERS:-}
       WINRM_ALLOWED_PROCESSES: ${WINRM_ALLOWED_PROCESSES:-}
+      LINUX_SSH_ENABLED: ${LINUX_SSH_ENABLED:-false}
+      LINUX_SSH_ALLOWED_HOSTS: ${LINUX_SSH_ALLOWED_HOSTS:-}
+      LINUX_SSH_PORT: ${LINUX_SSH_PORT:-22}
+      LINUX_SSH_USER: ${LINUX_SSH_USER:-}
+      LINUX_SSH_PASS: ${LINUX_SSH_PASS:-}
+      LINUX_SSH_KEY_PATH: ${LINUX_SSH_KEY_PATH:-}
+      LINUX_SSH_KNOWN_HOSTS: ${LINUX_SSH_KNOWN_HOSTS:-/app/certs/linux_known_hosts}
+      LINUX_SSH_USE_SUDO: ${LINUX_SSH_USE_SUDO:-true}
+      LINUX_SSH_ALLOWED_USERS: ${LINUX_SSH_ALLOWED_USERS:-}
+      LINUX_SSH_ALLOWED_PROCESSES: ${LINUX_SSH_ALLOWED_PROCESSES:-}
     volumes:
       - ./infra/certs:/app/certs:ro
     ports:
@@ -96,6 +108,8 @@ services:
       WAZUH_INDEXER_INDEX: ${WAZUH_INDEXER_INDEX:-wazuh-alerts-*}
       OLLAMA_URL: ${OLLAMA_URL:-}
       OLLAMA_MODEL: ${OLLAMA_MODEL:-}
+    extra_hosts:
+      - "wazuh.indexer:192.168.99.15"
     volumes:
       - ./infra/certs:/app/certs:ro
     ports:
