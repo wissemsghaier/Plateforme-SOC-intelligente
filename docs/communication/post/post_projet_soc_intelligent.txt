@@ -1,55 +1,86 @@
-POST PRÊT À PUBLIER — PROJET SOC INTELLIGENT
+POST LINKEDIN - VERSION PROFESSIONNELLE (FOCUS MACHINE LEARNING)
 
 Titre:
-De la détection à la réponse automatique: mon SOC intelligent (Wazuh + Shuffle + TheHive + Cortex + MISP)
+De la détection à la réponse automatique: mon SOC intelligent basé sur le Machine Learning
 
-Accroche:
-J’ai conçu un workflow SOC complet qui transforme une alerte brute en action de réponse automatique, avec traçabilité de bout en bout.
+Texte:
+J’ai conçu et implémenté une plateforme SOC intelligente qui connecte la détection, l’enrichissement et la réponse automatique dans un workflow unifié.
 
-Texte principal:
-Sur ce projet, mon objectif était clair: réduire le temps entre détection et action.
+Objectif principal:
+Réduire le temps de réaction incident en combinant SIEM + SOAR + Machine Learning.
 
-J’ai mis en place une chaîne opérationnelle:
-- Wazuh pour la détection
+Architecture mise en oeuvre:
+- Wazuh pour la collecte et la détection
+- MISP et Cortex pour l’enrichissement Threat Intelligence
+- Pipeline ML pour le scoring/priorisation des alertes
 - Shuffle pour l’orchestration SOAR
-- API de réponse pour l’exécution des actions (Linux/Windows)
-- TheHive pour la gestion des alertes
-- Cortex et MISP pour l’enrichissement renseignement
+- API de réponse pour les actions automatiques Linux/Windows
+- TheHive pour la traçabilité et la gestion opérationnelle
 
-Points clés (ce qui fait la valeur du projet):
-1) Réponse automatique multi-OS
-   - Routage intelligent Linux / Windows
-   - Action d’isolation exécutée automatiquement selon la politique
+Ce que le Machine Learning apporte concrètement:
+1) Priorisation intelligente des alertes
+   - Met l’accent sur les événements à plus fort risque
+   - Réduit le bruit opérationnel pour les analystes
 
-2) Décision pilotée par la criticité
-   - Déclenchement conditionné (HIGH/CRITICAL + approbation/payload valide)
-   - Réduction des faux déclenchements
+2) Aide à la décision SOC
+   - Support de triage orienté criticité
+   - Meilleure allocation du temps analyste
 
-3) Traçabilité SOC complète
-   - Chaque action est journalisée (statut, endpoint, host, résultat)
-   - Mise à jour de l’alerte TheHive avec tag de réponse SOAR
+3) Réduction du temps de réponse
+   - Détection -> scoring -> décision -> action automatique
+   - MTTR réduit sur les cas critiques
 
-4) Enrichissement cyber exploitable
-   - Pivot MISP/Cortex pour contextualiser l’alerte
-   - Gestion des IP publiques/privées selon la source de renseignement
+4) Standardisation des réponses
+   - Règles de déclenchement maîtrisées
+   - Traçabilité complète des actions exécutées
 
-5) Validation opérationnelle réelle
-   - Tests end-to-end sur environnement Docker
-   - Vérification de l’isolation effective côté machine cible
-
-Impact concret:
-- Diminution du temps de réaction incident
-- Standardisation des actions de containment
-- Amélioration de la qualité des investigations analystes
+Résultat:
+Une chaîne end-to-end opérationnelle:
+Detection -> Enrichment -> ML Scoring -> Automated Response -> TheHive Traceability
 
 Compétences démontrées:
-SOAR, SIEM, Threat Intel, API Integration, Python, Docker, Incident Response, TheHive, Cortex, MISP, Wazuh.
+Cybersecurity, SOC, SIEM, SOAR, Machine Learning, Python, Docker, API Integration, Incident Response.
 
 Conclusion:
-Ce projet montre comment passer d’un SOC “alert-centric” à un SOC “action-centric”, avec une logique de réponse fiable, mesurable et auditable.
+Ce projet illustre la transition d’un SOC "alert-centric" vers un SOC "action-centric" piloté par la donnée, avec une réponse plus rapide, plus cohérente et auditable.
 
-Version courte (LinkedIn):
-J’ai implémenté un SOC intelligent de bout en bout: Wazuh -> Shuffle -> Response API -> TheHive (+ Cortex/MISP). Résultat: isolation automatique multi-OS, enrichissement, et traçabilité complète des actions de réponse.
+Version courte (5 lignes):
+J’ai développé une plateforme SOC intelligente combinant Wazuh, MISP/Cortex, Shuffle, TheHive et un pipeline Machine Learning.  
+Le ML améliore le triage en priorisant les alertes critiques et en réduisant le bruit.  
+Le SOAR orchestre des actions automatiques (dont isolation Linux/Windows) avec traçabilité complète.  
+Résultat: meilleure efficacité analyste et réduction du temps de réponse incident.  
+Ouvert aux échanges sur les architectures SIEM + SOAR + ML.
 
-Hashtags suggérés:
-#SOC #CyberSecurity #SOAR #SIEM #ThreatIntelligence #IncidentResponse #Wazuh #Shuffle #TheHive #Cortex #MISP #Python #Docker
+Hashtags:
+#CyberSecurity #SOC #MachineLearning #SOAR #SIEM #ThreatIntelligence #Wazuh #TheHive #Cortex #MISP #Python #Docker #IncidentResponse
+
+
+
+🚀 J’ai conçu une plateforme SOC intelligente pour accélérer la détection et la réponse aux incidents cyber.
+
+Dans ce projet, j’ai intégré une chaîne complète :
+SIEM (Wazuh) + SOAR (Shuffle) + Threat Intelligence (MISP/Cortex) + Machine Learning + TheHive.
+
+🎯 Objectif : réduire le temps de réaction face aux menaces et standardiser les actions de réponse.
+
+✅ Ce que j’ai réalisé :
+
+Détection et normalisation des événements sécurité
+Enrichissement automatique des alertes (Threat Intel)
+Priorisation des incidents via scoring ML
+Orchestration SOAR avec décision par politique
+Réponse automatique multi-OS (Windows/Linux)
+Traçabilité complète des actions dans TheHive
+📈 Résultats obtenus :
+
+Réduction du temps de traitement des alertes critiques
+Réponse plus rapide et plus cohérente
+Meilleure visibilité SOC pour les analystes
+Processus auditable de bout en bout
+🛠️ Compétences mises en pratique :
+Cybersecurity, SOC Operations, Incident Response, SIEM, SOAR, Threat Intelligence, Python, API Integration, Docker, Machine Learning.
+
+Je suis ouvert aux opportunités en SOC / Blue Team / Security Automation / Detection & Response.
+N’hésitez pas à me contacter pour échanger. 🤝
+
+#CyberSecurity #SOC #SIEM #SOAR #IncidentResponse #ThreatIntelligence #MachineLearning #Python #Docker #TheHive #Wazuh

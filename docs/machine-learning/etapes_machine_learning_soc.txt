@@ -1,0 +1,60 @@
+ETAPES MACHINE LEARNING - PROJET SOC INTELLIGENT
+
+Objectif:
+Expliquer simplement comment le Machine Learning est intégré dans le workflow SOC.
+
+1) Définir le problème
+- But: prioriser les alertes de sécurité (faible, moyen, élevé, critique)
+- Sortie attendue: score de risque ou classe de priorité
+
+2) Collecter les données
+- Sources: Wazuh, TheHive, Cortex, MISP
+- Données utiles: rule_id, level, src_ip, dst_ip, type d’attaque, tags TI, historique incident
+
+3) Préparer les données (préprocessing)
+- Nettoyer les valeurs manquantes
+- Normaliser les formats (dates, IP, catégories)
+- Encoder les variables textuelles/catégorielles
+- Créer un dataset final (train/validation/test)
+
+4) Feature engineering
+- Exemples de features:
+  - criticité règle Wazuh
+  - fréquence de l’IP source
+  - présence sur blacklist TI
+  - type événement réseau/système
+  - heure/jour (contexte temporel)
+
+5) Choisir un modèle
+- Baseline: Logistic Regression / Random Forest
+- Option avancée: XGBoost/LightGBM
+- Objectif: bon compromis précision + interprétabilité
+
+6) Entraîner et évaluer
+- Métriques: Precision, Recall, F1-score, ROC-AUC
+- Important SOC: minimiser les faux négatifs sur alertes critiques
+
+7) Déployer le modèle
+- Exposer via API (ml-api)
+- Entrée: alerte normalisée
+- Sortie: score + classe + explication courte
+
+8) Intégrer au workflow SOAR
+- Shuffle appelle ml-api
+- Le score ML influence:
+  - déclenchement réponse auto
+  - niveau de priorité TheHive
+  - routage analyste
+
+9) Boucle de feedback
+- Récupérer le verdict analyste (true positive / false positive)
+- Réentraîner périodiquement le modèle
+- Versionner les modèles et comparer les performances
+
+10) Gouvernance et sécurité
+- Journaliser les décisions ML
+- Traçabilité des features et versions de modèle
+- Contrôles pour éviter les décisions automatiques non validées
+
+Résumé publication:
+Le ML ne remplace pas l’analyste SOC. Il accélère le triage, améliore la priorisation et permet une réponse plus rapide et cohérente.
