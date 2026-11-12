@@ -47,6 +47,8 @@ Tenzir est conservé tel quel ; aucun pipeline Tenzir n'est livré ici.
 Plan adapté au serveur SOC sur `ens18`, à l'adresse `192.168.99.15/24`
 (masque `255.255.255.0`). Ce plan remplace l'ancien adressage SOC du PDF :
 
+![Architecture SOC intelligente](docs/machine-learning/architecture_soc_projet_modern.svg)
+
 | Zone | Réseau | Machines |
 |---|---|---|
 | Attaque | `10.10.10.0/24` | Kali `10.10.10.20`, pfSense `10.10.10.1` |
